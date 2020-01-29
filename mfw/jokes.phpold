@@ -1,0 +1,38 @@
+<?php
+try {
+	include __DIR__.'/../includes/dbconxn.php';
+	include __DIR__.'/../classes/dbTable.php';
+
+	$jokestTable = new dbTable($pdo, 'joke', 'id');
+	$authorsTable = new dbTable($pdo, 'author', 'id');
+
+	$result = findAll();
+	$jokes =[];
+	foreach ($result as $joke) {
+		$author = $authorsTable->findById($joke['authorId']);
+		$jokes[] = [
+			'id' => $joke['id'],
+			'joketext' => $joke['joketext'],
+			'jokedate' => $joke['jokedate'],
+			'name' => $author['name'],
+			'email' => $author['email']
+		];
+	}
+
+	$title = 'Joke list';
+	$totJ = $jokesTable->total();
+	//start the buffer
+	ob_start();
+
+	//include the tempalte, execute php but store html in buffer
+	include __DIR__.'/../templates/jokes.html.php';
+
+	//read contents, store in $output for use in layout
+	$output=ob_get_clean();
+
+} catch (PDOException $e) {
+	$output = 'Unable to connect to the database server: '.$e->getMessage().' in '.$e->getFile().':'.$e->getLine();
+}
+include __DIR__.'/../templates/layout.html.php';
+
+?>
