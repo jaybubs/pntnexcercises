@@ -17,7 +17,7 @@ class Joke {
 		$result = $this->jokesTable->findAll();
 		$jokes =[];
 		foreach ($result as $joke) {
-			$author = $this->authorsTable->findById($joke['authorId']);
+			$author = $this->authorsTable->findById($joke['id']);
 			$jokes[] = [
 				'id'       => $joke['id'],
 				'joketext' => $joke['joketext'],
@@ -30,7 +30,6 @@ class Joke {
 
 		$title = 'Joke list';
 		$totJ = $this->jokesTable->total();
-		$author = $this->auth->getUser();
 		return ['template' => 'jokes.html.php',
 			'title' => $title,
 			'variables' => [

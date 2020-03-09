@@ -96,7 +96,7 @@ output	mfw/index.php	/^	$output = 'Database error: '.$e->getMessage().' in '.$e-
 p	mfw/jokes.css	/^p {margin-bottom: 1em;}$/;"	s
 passwordColumn	classes/Ninja/Authentication.php	/^	private $passwordColumn;$/;"	v	class:Ninja\\Authentication
 pdo	classes/Ninja/DbTable.php	/^	private $pdo;$/;"	v	class:Ninja\\dbTable
-pdo	includes/dbconxn.php	/^    $pdo = new PDO('mysql:host=mariadb;dbname=jokes;charset=utf8','chicken','kokoko');$/;"	v
+pdo	includes/dbconxn.php	/^    $pdo = new PDO('pgsql:host=postgres;dbname=jokes;user=postgres;password=postgres;options=\\'/;"	v
 primaryKey	classes/Ninja/DbTable.php	/^	private $primaryKey;$/;"	v	class:Ninja\\dbTable
 processDates	classes/Ninja/DbTable.php	/^	private function processDates($fields) {$/;"	f	class:Ninja\\dbTable
 processLogin	classes/Ijdb/Controllers/Login.php	/^	public function processLogin()$/;"	f	class:Ijdb\\Controllers\\Login

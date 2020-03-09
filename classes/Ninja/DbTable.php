@@ -18,13 +18,13 @@ class dbTable {
 		// this is the query that gets later referenced as ->query and thus will not produce name conflicts even if in other functions we have a variable called $query
 	}	
 	public function total() {
-		$query = $this->query('SELECT COUNT(*) FROM `' . $this->table . '`');
+		$query = $this->query('SELECT COUNT(*) FROM ' . $this->table . ';');
 		$row = $query->fetch();
 		return $row[0];
 	}
 
 	public function findById($value) {
-		$query = 'SELECT * FROM `' . $this->table . '` WHERE `' . $this->primaryKey . '` = :primaryKey';
+		$query = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->primaryKey . ' = :primaryKey;';
 		$parameters = [
 			'primaryKey' => $value
 		];
@@ -32,7 +32,7 @@ class dbTable {
 		return $query->fetch();
 	}
 	public function find($column,$value) {
-		$query = 'SELECT * FROM ' . $this->table . ' WHERE ' . $column . ' =:value';
+		$query = 'SELECT * FROM ' . $this->table . ' WHERE ' . $column . ' =:value;';
 		$parameters = ['value' => $value];
 		$query = $this->query($query, $parameters);
 
@@ -40,9 +40,9 @@ class dbTable {
 	}
 	
 	private function insert($fields) {
-		$query = 'INSERT INTO `' . $this->table . '` (';
+		$query = 'INSERT INTO ' . $this->table . ' (';
 		foreach ($fields as $key => $value) {
-			$query .= '`' . $key . '`,';
+			$query .= '' . $key . ',';
 		}
 		$query = rtrim($query, ',');
 		$query .= ') VALUES (';
@@ -50,17 +50,17 @@ class dbTable {
 			$query .= ':' . $key . ',';
 		}
 		$query = rtrim($query, ',');
-		$query .= ')';
+		$query .= ');';
 		$fields = $this->processDates($fields);
 		$this->query($query, $fields);
 	}
 	private function update($fields) {
-		$query = ' UPDATE `' . $this->table .'` SET ';
+		$query = ' UPDATE ' . $this->table .' SET ';
 		foreach ($fields as $key => $value) {
-			$query .= '`' . $key . '` = :' . $key . ',';
+			$query .= '' . $key . ' = :' . $key . ',';
 		}
 		$query = rtrim($query, ',');
-		$query .= ' WHERE `' . $this->primaryKey . '` = :primaryKey';
+		$query .= ' WHERE ' . $this->primaryKey . ' = :primaryKey;';
 		//Set the :primaryKey variable
 		$fields['primaryKey'] = $fields['id'];
 		$fields = $this->processDates($fields);
@@ -68,16 +68,16 @@ class dbTable {
 	}
 	public function fuck($id) {
 		$parameters = [':id' => $id];
-		$this->query('DELETE FROM `' . $this->table . '` WHERE `' . $this->primaryKey . '` = :id', $parameters);
+		$this->query('DELETE FROM ' . $this->table . ' WHERE ' . $this->primaryKey . ' = :id;', $parameters);
 	}
 	public function findAll() {
-		$result = $this->query('SELECT * FROM ' . $this->table);
+		$result = $this->query('SELECT * FROM ' . $this->table.';');
 		return $result->fetchAll();
 	}
 	private function processDates($fields) {
 		foreach ($fields as $key => $value) {
 			if ($value instanceof \DateTime) {
-				$fields[$key] = $value->format('Y-m-d');
+				$fields[$key] = $value->format('Y-m-d H:i:s');
 			}
 		}
 		return $fields;
@@ -90,7 +90,7 @@ class dbTable {
 			$this->insert($record);
 		}
 		catch (\PDOException $e) {
-			$this->update( $record);
+			$this->update($record);
 		}
 	}
 }
