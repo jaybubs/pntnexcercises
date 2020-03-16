@@ -1,0 +1,64 @@
+<?php
+
+namespace Ijdb\Controllers;
+
+class Category
+{
+	private $categoriesTable;
+	public function __construct(\Ninja\DbTable $categoriesTable)
+	{
+        $this->categoriesTable = $categoriesTable;
+	}
+
+	public function list()
+	{
+		$categories = $this->categoriesTable->findAll();
+
+		$title = 'Joke Categories';
+
+		return ['template' => 'categories.html.php',
+			'title' => $title,
+			'variables' => [
+				'categories' => $categories
+			]
+		];
+	}
+	
+	public function edit()
+	{
+		if (isset($_GET['id'])) {
+			$category = $this->categoriesTable->findById($_GET['id']);
+		}
+
+		$title = 'Edit Category';
+
+		return ['template' => 'editcategory.html.php',
+			'title' => $title,
+			'variables' => [
+				'category' => $category ?? null
+			]
+		];
+	}
+
+	public function saveEdit()
+	{
+		$category = $_POST['category'];
+
+		$this->categoriesTable->save($category);
+
+		header('location: /category/list');
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 */
+	public function fuck()
+	{
+		$this->categoriesTable->fuck($_POST['id']);
+
+		header('location: /category/list');
+	}
+	
+
+}

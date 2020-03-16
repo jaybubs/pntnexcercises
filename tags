@@ -6,19 +6,33 @@
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	0.0.0	/bd612ba3/
-*	mfw/jokes.css	/^* {margin: 0; padding: 0; }$/;"	s
-.errors	mfw/jokes.css	/^.errors {$/;"	c
-.errors ul	mfw/jokes.css	/^.errors ul {$/;"	s
+*	mfw/jokes.css	/^ * {margin: 0; padding: 0; }$/;"	s
+.categories	mfw/jokes.css	/^.categories {display: table-cell; width: 20%; background-color: #333; padding: 1em; list-style-t/;"	c
+.categories a	mfw/jokes.css	/^.categories a {color: white; text-decoration: none;}$/;"	s
+.categories li	mfw/jokes.css	/^.categories li {margin-bottom: 1em;}$/;"	s
+.errors	mfw/jokes.css	/^.errors {padding: 1em; border: 1px solid red; background-color: lightyellow; color: red; margin-/;"	c
+.errors ul	mfw/jokes.css	/^.errors ul {margin-left: 1em;}$/;"	s
+.jokelist	mfw/jokes.css	/^.jokelist {display: table;}$/;"	c
+.jokelist .jokes	mfw/jokes.css	/^.jokelist .jokes {display: table-cell; padding: 1em;}$/;"	c
 Authentication	classes/Ijdb/Controllers/Joke.php	/^use \\Ninja\\Authentication;$/;"	a	namespace:Ijdb\\Controllers	typeref:unknown:\\Ninja\\Authentication
 Authentication	classes/Ninja/Authentication.php	/^class Authentication$/;"	c	namespace:Ninja
+Author	classes/Ijdb/Entity/Author.php	/^class Author {$/;"	c	namespace:Ijdb\\Entity
+Category	classes/Ijdb/Controllers/Category.php	/^class Category$/;"	c	namespace:Ijdb\\Controllers
+Category	classes/Ijdb/Entity/Category.php	/^class Category$/;"	c	namespace:Ijdb\\Entity
 DbTable	classes/Ijdb/Controllers/Joke.php	/^use \\Ninja\\DbTable;$/;"	a	namespace:Ijdb\\Controllers	typeref:unknown:\\Ninja\\DbTable
 DbTable	classes/Ijdb/Controllers/Register.php	/^use \\Ninja\\DbTable;$/;"	a	namespace:Ijdb\\Controllers	typeref:unknown:\\Ninja\\DbTable
+DbTable	classes/Ijdb/Entity/Category.php	/^use Ninja\\DbTable;$/;"	a	namespace:Ijdb\\Entity	typeref:unknown:Ninja\\DbTable
 Ijdb	classes/Ijdb/IjdbRoutes.php	/^namespace Ijdb;$/;"	n
 IjdbRoutes	classes/Ijdb/IjdbRoutes.php	/^class IjdbRoutes implements \\Ninja\\Routes {$/;"	c	namespace:Ijdb
+Ijdb\\Controllers	classes/Ijdb/Controllers/Category.php	/^namespace Ijdb\\Controllers;$/;"	n
 Ijdb\\Controllers	classes/Ijdb/Controllers/Joke.php	/^namespace Ijdb\\Controllers;$/;"	n
 Ijdb\\Controllers	classes/Ijdb/Controllers/Login.php	/^namespace Ijdb\\Controllers;$/;"	n
 Ijdb\\Controllers	classes/Ijdb/Controllers/Register.php	/^namespace Ijdb\\Controllers;$/;"	n
+Ijdb\\Entity	classes/Ijdb/Entity/Author.php	/^namespace Ijdb\\Entity;$/;"	n
+Ijdb\\Entity	classes/Ijdb/Entity/Category.php	/^namespace Ijdb\\Entity;$/;"	n
+Ijdb\\Entity	classes/Ijdb/Entity/Joke.php	/^namespace Ijdb\\Entity;$/;"	n
 Joke	classes/Ijdb/Controllers/Joke.php	/^class Joke {$/;"	c	namespace:Ijdb\\Controllers
+Joke	classes/Ijdb/Entity/Joke.php	/^class Joke$/;"	c	namespace:Ijdb\\Entity
 Login	classes/Ijdb/Controllers/Login.php	/^class Login$/;"	c	namespace:Ijdb\\Controllers
 Ninja	classes/Ninja/Authentication.php	/^namespace Ninja;$/;"	n
 Ninja	classes/Ninja/DbTable.php	/^namespace Ninja;$/;"	n
@@ -27,31 +41,48 @@ Ninja	classes/Ninja/Routes.php	/^namespace Ninja;$/;"	n
 Register	classes/Ijdb/Controllers/Register.php	/^class Register$/;"	c	namespace:Ijdb\\Controllers
 RegisterController	classes/Ijdb/Controllers/RegisterController.php	/^class RegisterController {$/;"	c
 Routes	classes/Ninja/Routes.php	/^interface Routes {$/;"	i	namespace:Ninja
-__construct	classes/Ijdb/Controllers/Joke.php	/^	public function __construct(dbTable $jokesTable, dbTable $authorsTable, Authentication $auth) {$/;"	f	class:Ijdb\\Controllers\\Joke
+__construct	classes/Ijdb/Controllers/Category.php	/^	public function __construct(\\Ninja\\DbTable $categoriesTable)$/;"	f	class:Ijdb\\Controllers\\Category
+__construct	classes/Ijdb/Controllers/Joke.php	/^	public function __construct(dbTable $jokesTable, dbTable $authorsTable, dbTable $categoriesTabl/;"	f	class:Ijdb\\Controllers\\Joke
 __construct	classes/Ijdb/Controllers/Login.php	/^	public function __construct(\\Ninja\\Authentication $auth)$/;"	f	class:Ijdb\\Controllers\\Login
 __construct	classes/Ijdb/Controllers/Register.php	/^	public function __construct(dbTable $authorsTable) {$/;"	f	class:Ijdb\\Controllers\\Register
 __construct	classes/Ijdb/Controllers/RegisterController.php	/^	public function __construct(dbTable $authorsTable) {$/;"	f	class:RegisterController
+__construct	classes/Ijdb/Entity/Author.php	/^	public function __construct(\\Ninja\\DbTable $jokesTable)$/;"	f	class:Ijdb\\Entity\\Author
+__construct	classes/Ijdb/Entity/Category.php	/^    public function __construct(DbTable $jokesTable, DbTable $jokeCategoriesTable)$/;"	f	class:Ijdb\\Entity\\Category
+__construct	classes/Ijdb/Entity/Joke.php	/^	public function __construct(\\Ninja\\DbTable $authorsTable, \\Ninja\\DbTable $jokeCategoriesTab/;"	f	class:Ijdb\\Entity\\Joke
 __construct	classes/Ijdb/IjdbRoutes.php	/^	public function __construct() {$/;"	f	class:Ijdb\\IjdbRoutes
 __construct	classes/Ninja/Authentication.php	/^	public function __construct(dbTable $users, $usernameColumn, $passwordColumn)$/;"	f	class:Ninja\\Authentication
-__construct	classes/Ninja/DbTable.php	/^	public function __construct(\\PDO $pdo, string $table, string $primaryKey) {$/;"	f	class:Ninja\\dbTable
+__construct	classes/Ninja/DbTable.php	/^	public function __construct(\\PDO $pdo, string $table, string $primaryKey, string $className = /;"	f	class:Ninja\\dbTable
 __construct	classes/Ninja/EntryPoint.php	/^	public function __construct(string $route,string $method,\\Ninja\\Routes $routes) {$/;"	f	class:Ninja\\entryPoint
+addCategory	classes/Ijdb/Entity/Joke.php	/^	public function addCategory($categoryId)$/;"	f	class:Ijdb\\Entity\\Joke
+addJoke	classes/Ijdb/Entity/Author.php	/^	public function addJoke($joke)$/;"	f	class:Ijdb\\Entity\\Author
+auth	classes/Ijdb/Controllers/Joke.php	/^	private $auth;$/;"	v	class:Ijdb\\Controllers\\Joke
 auth	classes/Ijdb/Controllers/Login.php	/^	private $auth;$/;"	v	class:Ijdb\\Controllers\\Login
 auth	classes/Ijdb/IjdbRoutes.php	/^	private $auth;$/;"	v	class:Ijdb\\IjdbRoutes
+author	classes/Ijdb/Entity/Joke.php	/^	private $author;$/;"	v	class:Ijdb\\Entity\\Joke
+authorId	classes/Ijdb/Entity/Joke.php	/^	public $authorId;$/;"	v	class:Ijdb\\Entity\\Joke
 authorsTable	classes/Ijdb/Controllers/Joke.php	/^	private $authorsTable;$/;"	v	class:Ijdb\\Controllers\\Joke
 authorsTable	classes/Ijdb/Controllers/Register.php	/^	private $authorsTable;$/;"	v	class:Ijdb\\Controllers\\Register
 authorsTable	classes/Ijdb/Controllers/RegisterController.php	/^	private $authorsTable;$/;"	v	class:RegisterController
+authorsTable	classes/Ijdb/Entity/Joke.php	/^	private $authorsTable;$/;"	v	class:Ijdb\\Entity\\Joke
 authorsTable	classes/Ijdb/IjdbRoutes.php	/^	private $authorsTable;$/;"	v	class:Ijdb\\IjdbRoutes
 autoloader	includes/autoload.php	/^function autoloader($className)$/;"	f
-blockquote	mfw/jokes.css	/^blockquote {display: table; margin-bottom: 1em; border-bottom: 1px solid #ccc; padding: 0.5em;}$/;"	s
-blockquote form	mfw/jokes.css	/^blockquote form {display: table-cell; width: 10%;}$/;"	s
+blockquote	mfw/jokes.css	/^blockquote {display: table; margin-bottom: 1em; border-bottom: 1px solid #ccc; padding: 0.5em; }$/;"	s
+blockquote form	mfw/jokes.css	/^blockquote form {  display: table-cell; width: 10%;}$/;"	s
 blockquote p	mfw/jokes.css	/^blockquote p {display: table-cell; width: 90%; vertical-align: top;}$/;"	s
 body	mfw/jokes.css	/^body {font-family: Arial, Helvetica, Sans-serif; }$/;"	s
 body	mfw/jokes.css	/^body {font-size: 1.2em; font-family: arial, helvetica, sans-serif}$/;"	s
+categoriesTable	classes/Ijdb/Controllers/Category.php	/^	private $categoriesTable;$/;"	v	class:Ijdb\\Controllers\\Category
+categoriesTable	classes/Ijdb/Controllers/Joke.php	/^	private $categoriesTable;$/;"	v	class:Ijdb\\Controllers\\Joke
+categoriesTable	classes/Ijdb/IjdbRoutes.php	/^	private $categoriesTable;$/;"	v	class:Ijdb\\IjdbRoutes
 checkUrl	classes/Ninja/EntryPoint.php	/^	private function checkUrl() {$/;"	f	class:Ninja\\entryPoint
+className	classes/Ninja/DbTable.php	/^	private $className;$/;"	v	class:Ninja\\dbTable
+constructorArgs	classes/Ninja/DbTable.php	/^	private $constructorArgs;$/;"	v	class:Ninja\\dbTable
 count	mfw/count.php	/^for ($count = 1; $count <= 10; $count++) {$/;"	v
-date	templates/jokes.html.php	/^$date = new DateTime($joke['jokedate']);$/;"	v
+date	templates/jokes.html.php	/^                $date = new DateTime($joke->jokedate);$/;"	v
 dbTable	classes/Ninja/DbTable.php	/^class dbTable {$/;"	c	namespace:Ninja
+edit	classes/Ijdb/Controllers/Category.php	/^	public function edit()$/;"	f	class:Ijdb\\Controllers\\Category
 edit	classes/Ijdb/Controllers/Joke.php	/^	public function edit() {$/;"	f	class:Ijdb\\Controllers\\Joke
+email	classes/Ijdb/Entity/Author.php	/^	public $email;$/;"	v	class:Ijdb\\Entity\\Author
 entryPoint	classes/Ninja/EntryPoint.php	/^class entryPoint {$/;"	c	namespace:Ninja
 entryPoint	mfw/index.php	/^	$entryPoint = new \\Ninja\\EntryPoint($route, $_SERVER['REQUEST_METHOD'], new \\Ijdb\\IjdbRoute/;"	v
 error	classes/Ijdb/Controllers/Login.php	/^	public function error()$/;"	f	class:Ijdb\\Controllers\\Login
@@ -60,24 +91,42 @@ findAll	classes/Ninja/DbTable.php	/^	public function findAll() {$/;"	f	class:Nin
 findById	classes/Ninja/DbTable.php	/^	public function findById($value) {$/;"	f	class:Ninja\\dbTable
 footer	mfw/jokes.css	/^footer {padding: 1em; background-color: #FFC9A7 ; font-size: 0.8em;}$/;"	s
 form	mfw/jokes.css	/^form {overflow: auto; clear: both; display: block;}$/;"	s
+form p	mfw/jokes.css	/^form p {clear: both;}$/;"	s
+fuck	classes/Ijdb/Controllers/Category.php	/^	public function fuck()$/;"	f	class:Ijdb\\Controllers\\Category
 fuck	classes/Ijdb/Controllers/Joke.php	/^	public function fuck() {$/;"	f	class:Ijdb\\Controllers\\Joke
 fuck	classes/Ninja/DbTable.php	/^	public function fuck($id) {$/;"	f	class:Ninja\\dbTable
 getAuth	classes/Ijdb/IjdbRoutes.php	/^	public function getAuth(): \\Ninja\\Authentication {$/;"	f	class:Ijdb\\IjdbRoutes	typeref:unknown:\\Ninja\\Authentication
 getAuth	classes/Ninja/Routes.php	/^	public function getAuth(): \\Ninja\\Authentication;$/;"	f	interface:Ninja\\Routes	typeref:unknown:\\Ninja\\Authentication
+getAuthor	classes/Ijdb/Entity/Joke.php	/^	public function getAuthor() {$/;"	f	class:Ijdb\\Entity\\Joke
+getJokes	classes/Ijdb/Entity/Author.php	/^	public function getJokes()$/;"	f	class:Ijdb\\Entity\\Author
+getJokes	classes/Ijdb/Entity/Category.php	/^    public function getJokes()$/;"	f	class:Ijdb\\Entity\\Category
 getRoutes	classes/Ijdb/IjdbRoutes.php	/^	public function getRoutes(): array {$/;"	f	class:Ijdb\\IjdbRoutes	typeref:unknown:array
 getRoutes	classes/Ninja/Routes.php	/^	public function getRoutes(): array;$/;"	f	interface:Ninja\\Routes	typeref:unknown:array
 getUser	classes/Ninja/Authentication.php	/^	public function getUser()$/;"	f	class:Ninja\\Authentication
 h1	mfw/jokes.css	/^h1 {font-weight: normal; padding: 1.5em; color: white; text-shadow: 1px 1px 0px #444; width: 100/;"	s
 header	mfw/jokes.css	/^header {display: block;  background-color: #3cbc8d; padding: 20px; border-bottom: 5px solid #757/;"	s
 home	classes/Ijdb/Controllers/Joke.php	/^	public function home() {$/;"	f	class:Ijdb\\Controllers\\Joke
+id	classes/Ijdb/Entity/Author.php	/^	public $id;$/;"	v	class:Ijdb\\Entity\\Author
+id	classes/Ijdb/Entity/Category.php	/^    public $id;$/;"	v	class:Ijdb\\Entity\\Category
+id	classes/Ijdb/Entity/Joke.php	/^	public $id;$/;"	v	class:Ijdb\\Entity\\Joke
 input	mfw/jokes.css	/^input, label, select, textarea {float: left; width: 15em; margin-bottom: 1em;  padding: 0.5em;}$/;"	s
+input[type="checkbox"]	mfw/jokes.css	/^input[type="checkbox"] {float: left; clear: left; width: auto; margin-right: 10px;}$/;"	s
+input[type="checkbox"] + label	mfw/jokes.css	/^input[type="checkbox"] + label {clear: right;}$/;"	s
 input[type="submit"]	mfw/jokes.css	/^input[type="submit"] {margin-left: 15em; width: auto; padding: 0.5em 1em; clear: both; font-size/;"	s
 insert	classes/Ninja/DbTable.php	/^	private function insert($fields) {$/;"	f	class:Ninja\\dbTable
 isLoggedIn	classes/Ninja/Authentication.php	/^	public function isLoggedIn()$/;"	f	class:Ninja\\Authentication
+jokeCategoriesTable	classes/Ijdb/Entity/Category.php	/^    private $jokeCategoriesTable;$/;"	v	class:Ijdb\\Entity\\Category
+jokeCategoriesTable	classes/Ijdb/Entity/Joke.php	/^	private $jokeCategoriesTable;$/;"	v	class:Ijdb\\Entity\\Joke
+jokeCategoriesTable	classes/Ijdb/IjdbRoutes.php	/^	private $jokeCategoriesTable;$/;"	v	class:Ijdb\\IjdbRoutes
+jokedate	classes/Ijdb/Entity/Joke.php	/^	public $jokedate;$/;"	v	class:Ijdb\\Entity\\Joke
 jokesTable	classes/Ijdb/Controllers/Joke.php	/^	private $jokesTable;$/;"	v	class:Ijdb\\Controllers\\Joke
+jokesTable	classes/Ijdb/Entity/Author.php	/^	private $jokesTable;$/;"	v	class:Ijdb\\Entity\\Author
+jokesTable	classes/Ijdb/Entity/Category.php	/^    private $jokesTable;$/;"	v	class:Ijdb\\Entity\\Category
 jokesTable	classes/Ijdb/IjdbRoutes.php	/^	private $jokesTable;$/;"	v	class:Ijdb\\IjdbRoutes
+joketext	classes/Ijdb/Entity/Joke.php	/^	public $joketext;$/;"	v	class:Ijdb\\Entity\\Joke
 label	mfw/jokes.css	/^input, label, select, textarea {float: left; width: 15em; margin-bottom: 1em;  padding: 0.5em;}$/;"	s
-label	mfw/jokes.css	/^label {clear: left; padding: 0; margin: 0;}$/;"	s
+label	mfw/jokes.css	/^label {clear: left; padding: 0; margin: 0; display: inline-block;}$/;"	s
+list	classes/Ijdb/Controllers/Category.php	/^	public function list()$/;"	f	class:Ijdb\\Controllers\\Category
 list	classes/Ijdb/Controllers/Joke.php	/^	public function list() {$/;"	f	class:Ijdb\\Controllers\\Joke
 loadTemplate	classes/Ninja/EntryPoint.php	/^	private function loadTemplate($templateFileName, $variables =[]) {$/;"	f	class:Ninja\\entryPoint
 login	classes/Ninja/Authentication.php	/^	public function login($username, $password)$/;"	f	class:Ninja\\Authentication
@@ -85,6 +134,8 @@ loginForm	classes/Ijdb/Controllers/Login.php	/^	public function loginForm()$/;"	
 logout	classes/Ijdb/Controllers/Login.php	/^	public function logout()$/;"	f	class:Ijdb\\Controllers\\Login
 main	mfw/jokes.css	/^main {overflow: auto; min-height: 30vh; background-color: #f7f7f7; width: 1000px; margin: auto; /;"	s
 method	classes/Ninja/EntryPoint.php	/^	private $method;$/;"	v	class:Ninja\\entryPoint
+name	classes/Ijdb/Entity/Author.php	/^	public $name;$/;"	v	class:Ijdb\\Entity\\Author
+name	classes/Ijdb/Entity/Category.php	/^    public $name;$/;"	v	class:Ijdb\\Entity\\Category
 nav	mfw/jokes.css	/^nav {background-color: #443A5C;}$/;"	s
 nav a	mfw/jokes.css	/^nav a {color: white; text-decoration: none;}$/;"	s
 nav a:hover	mfw/jokes.css	/^nav a:hover {color: #ddd;}$/;"	s
@@ -94,6 +145,7 @@ output	includes/error.php	/^        $output = 'Database error: '.$e->getMessage(
 output	mfw/count.php	/^$output = '';$/;"	v
 output	mfw/index.php	/^	$output = 'Database error: '.$e->getMessage().' in '.$e->getFile().':'.$e->getLine();$/;"	v
 p	mfw/jokes.css	/^p {margin-bottom: 1em;}$/;"	s
+password	classes/Ijdb/Entity/Author.php	/^	public $password;$/;"	v	class:Ijdb\\Entity\\Author
 passwordColumn	classes/Ninja/Authentication.php	/^	private $passwordColumn;$/;"	v	class:Ninja\\Authentication
 pdo	classes/Ninja/DbTable.php	/^	private $pdo;$/;"	v	class:Ninja\\dbTable
 pdo	includes/dbconxn.php	/^    $pdo = new PDO('mysql:host=mariadb;dbname=jokes;charset=utf8','chicken','kokoko');$/;"	v
@@ -108,6 +160,7 @@ route	mfw/index.php	/^	$route = ltrim(strtok($_SERVER['REQUEST_URI'], '?'), '\/'
 routes	classes/Ninja/EntryPoint.php	/^	private $routes;$/;"	v	class:Ninja\\entryPoint
 run	classes/Ninja/EntryPoint.php	/^	public function run() {$/;"	f	class:Ninja\\entryPoint
 save	classes/Ninja/DbTable.php	/^	public function save($record) {$/;"	f	class:Ninja\\dbTable
+saveEdit	classes/Ijdb/Controllers/Category.php	/^	public function saveEdit()$/;"	f	class:Ijdb\\Controllers\\Category
 saveEdit	classes/Ijdb/Controllers/Joke.php	/^	public function saveEdit() {$/;"	f	class:Ijdb\\Controllers\\Joke
 select	mfw/jokes.css	/^input, label, select, textarea {float: left; width: 15em; margin-bottom: 1em;  padding: 0.5em;}$/;"	s
 success	classes/Ijdb/Controllers/Login.php	/^	public function success()$/;"	f	class:Ijdb\\Controllers\\Login

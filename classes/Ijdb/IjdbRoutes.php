@@ -5,15 +5,19 @@ class IjdbRoutes implements \Ninja\Routes {
 
 	private $authorsTable;
 	private $jokesTable;
+	private $categoriesTable;
 	private $auth;
+	private $jokeCategoriesTable;
 
 	public function __construct() {
 
 		include __DIR__.'/../../includes/dbconxn.php';
 
-		$this->jokesTable = new \Ninja\DbTable($pdo,'joke','id');
-		$this->authorsTable = new \Ninja\DbTable($pdo, 'author', 'id');
+		$this->jokesTable = new \Ninja\DbTable($pdo,'joke','id', '\Ijdb\Entity\Joke',[&$this->authorsTable,&$this->jokeCategoriesTable]);
+		$this->authorsTable = new \Ninja\DbTable($pdo, 'author', 'id','\Ijdb\Entity\Author', [&$this->jokesTable]);
 		$this->auth = new \Ninja\Authentication($this->authorsTable, 'email', 'password');
+		$this->categoriesTable = new \Ninja\DbTable($pdo, 'category', 'id', '\Ijdb\Entity\Category',[&$this->jokesTable, &$this->jokeCategoriesTable]);
+		$this->jokeCategoriesTable = new \Ninja\DbTable($pdo, 'joke_category', 'categoryId');
 	}
 	
 
@@ -23,9 +27,10 @@ class IjdbRoutes implements \Ninja\Routes {
 	
 	public function getRoutes(): array {
 
-		$jokeController = new \Ijdb\Controllers\Joke($this->jokesTable, $this->authorsTable, $this->auth);
+		$jokeController = new \Ijdb\Controllers\Joke($this->jokesTable, $this->authorsTable, $this->categoriesTable, $this->auth);
 		$authorController = new \Ijdb\Controllers\Register($this->authorsTable);
 		$loginController = new \Ijdb\Controllers\Login($this->auth);
+		$categoryController = new \Ijdb\Controllers\Category($this->categoriesTable);
 
 		$routes = [
 			'author/register' => [
@@ -103,6 +108,31 @@ class IjdbRoutes implements \Ninja\Routes {
 					'controller' => $loginController,
 					'action' => 'logout'
 				]
+			],
+			'category/edit' => [
+				'POST' => [
+					'controller' => $categoryController,
+					'action' => 'saveEdit'
+				],
+				'GET' => [
+					'controller' => $categoryController,
+					'action' => 'edit'
+				],
+				'login' => true
+			],
+			'category/list' => [
+				'GET' => [
+					'controller' => $categoryController,
+					'action' => 'list'
+				],
+				'login' => true
+			],
+			'category/fuck' => [
+				'POST' => [
+					'controller' => $categoryController,
+					'action' => 'fuck'
+				],
+				'login' => true
 			]
 		];
 
