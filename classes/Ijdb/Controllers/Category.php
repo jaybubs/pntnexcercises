@@ -48,11 +48,7 @@ class Category
 
 		header('location: /category/list');
 	}
-	/**
-	 * undocumented function
-	 *
-	 * @return void
-	 */
+
 	public function fuck()
 	{
 		$this->categoriesTable->fuck($_POST['id']);
@@ -60,5 +56,6 @@ class Category
 		header('location: /category/list');
 	}
 	
+    
 
 }

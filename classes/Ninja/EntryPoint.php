@@ -34,9 +34,11 @@ class entryPoint {
 		$routes = $this->routes->getRoutes();
 		$auth = $this->routes->getAuth();
 
-		if (isset($routes[$this->route]['login']) && isset($routes[$this->route]['login']) && !$auth->isLoggedIn()){
+		if (isset($routes[$this->route]['login']) && !$auth->isLoggedIn()){
 			header('location: /login/error');
-		} else {
+        } elseif (isset($routes[$this->route]['permissions']) && !$this->routes->checkPermission($routes[$this->route]['permissions'])) {
+            header('location: /login/error');
+        } else {
 		$controller = $routes[$this->route][$this->method]['controller'];
 		$action = $routes[$this->route][$this->method]['action'];
 

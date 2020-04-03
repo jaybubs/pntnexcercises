@@ -13,24 +13,36 @@
 
     <?php foreach($jokes as $joke): ?>
         <blockquote>
-            <?=htmlspecialchars($joke->joketext, ENT_QUOTES, 'UTF-8')?>
-
-            (by <a href="mailto:<?=htmlspecialchars($joke->getAuthor()->email, ENT_QUOTES,
-                'UTF-8'); ?>">
-            <?=htmlspecialchars($joke->getAuthor()->name, ENT_QUOTES,
-                'UTF-8'); ?></a> on 
+            <?=(new \Ninja\Markdown($joke->joketext))->toHtml()?>
+            (by <a href="mailto:<?=htmlspecialchars($joke->getAuthor()->email, ENT_QUOTES, 'UTF-8'); ?>">
+            <?=htmlspecialchars($joke->getAuthor()->name, ENT_QUOTES, 'UTF-8'); ?></a> on 
             <?php
                 $date = new DateTime($joke->jokedate);
 
-            echo $date->format('jS F Y');
+                echo $date->format('jS F Y');
             ?>)
-            <?php if ($userId == $joke->authorId): ?>
-                <a href="/joke/edit?id=<?=$joke->id?>">Edit</a>
-                <form action="/joke/fuck" method="post">
-                    <input type="hidden" name="id" value="<?=$joke->id?>">
-                    <input type="submit" value="Delete">
-                </form>
+            <?php if ($user): ?>
+                <?php if ($user->id == $joke->authorId || $user->hasPermission(\Ijdb\Entity\Author::JOKES_EDIT)): ?>
+                    <a href="/joke/edit?id=<?=$joke->id?>">Edit</a>
+                <?php endif; ?>
+                <?php if ($user->id == $joke->authorId || $user->hasPermission(\Ijdb\Entity\Author::JOKES_DELETE)): ?>
+                    <form action="/joke/delete" method="post" accept-charset="utf-8">
+                    <input type="hidden" value="<?=$joke->id?>" name="id"/>
+                    <input type="submit" value="Delete"/>
+                    </form>
+                <?php endif; ?>
             <?php endif; ?>
         </blockquote>
     <?php endforeach; ?>
+
+    Select page:
+    <?php
+        $numPages = ceil($totJ/2);
+        for ($i = 1; $i <= $numPages; $i++):
+            if ($i == $currentPage):?>
+<a class="currentpage" href="/joke/list?page=<?=$i?><?=!empty($categoryId) ? '&category=' . $categoryId : '' ?>"><?=$i?></a>
+<?php else: ?>
+<a href="/joke/list?page=<?=$i?><?=!empty($categoryId) ? '&category=' . $categoryId : '' ?>"><?=$i?></a>
+<?php endif; ?>
+<?php endfor; ?>
 </div>

@@ -17,11 +17,15 @@ class Joke {
 	}
 
 	public function list() {
+        $page = $_GET['page'] ?? 1;
+        $offset = ($page-1)*2;
+
         if (isset($_GET['category'])) {
             $category = $this->categoriesTable->findById($_GET['category']);
-            $jokes = $category->getJokes();
+            $jokes = $category->getJokes(2, $offset);
         } else {
-            $jokes = $this->jokesTable->findAll();
+            $jokes = $this->jokesTable->findAll('jokedate DESC', 2, $offset);
+            $totJ = $this->jokesTable->total();
         }
 
 		$title = 'Joke list';
@@ -32,8 +36,10 @@ class Joke {
 			'variables' => [
 				'totJ' => $totJ,
 				'jokes' => $jokes,
-				'userId' => $author->id ?? null,
-				'categories' => $this->categoriesTable->findAll()
+                'user' => $author,
+                'categories' => $this->categoriesTable->findAll(),
+                'currentPage' => $page,
+                'category' => $_GET['category'] ?? null
 			]
 		];
 	}
@@ -46,10 +52,8 @@ class Joke {
 
 	public function fuck() {
 		$author = $this->auth->getUser();
-
 		$joke = $this->jokesTable->findById($_POST['id']);
-
-		if ($joke->authorId != $author->id) {
+		if ($joke->authorId != $author->id && !$author->hasPermission(\Ijdb\Entity\Author::JOKES_DELETE)) {
 			return;
 		}
 
@@ -65,10 +69,14 @@ class Joke {
 		$joke['jokedate'] = new \DateTime();
 
 		$jokeEntity = $author->addJoke($joke);
+        $jokeEntity->clearCategories();
+
+        if (is_array($_POST['category'])) { //while not in the tutorial, foreach gives an exception when its fed an null/empty value, this way if the supplied value is null/empty array it will sipp adding categories and the joke will stay categoryless
 
 		foreach ($_POST['category'] as $categoryId) {
 			$jokeEntity->addCategory($categoryId);
 		}
+        }
 
 		header('location: /joke/list');
 	}
@@ -87,7 +95,8 @@ class Joke {
 			'title' => $title,
 			'variables' => [
 				'joke' => $joke ?? null,
-				'userId' => $author->id ?? null,
+                'user' => $author,
+				// 'userId' => $author->id ?? null,
 				'categories' => $categories
 			]
 		];

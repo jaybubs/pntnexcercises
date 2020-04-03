@@ -25,6 +25,17 @@ class IjdbRoutes implements \Ninja\Routes {
 		return $this->auth;
 	}
 	
+    public function checkPermission($permission): bool
+    {
+        $user = $this->auth->getUser();
+
+        if ($user && $user->hasPermission($permission)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 	public function getRoutes(): array {
 
 		$jokeController = new \Ijdb\Controllers\Joke($this->jokesTable, $this->authorsTable, $this->categoriesTable, $this->auth);
@@ -118,22 +129,45 @@ class IjdbRoutes implements \Ninja\Routes {
 					'controller' => $categoryController,
 					'action' => 'edit'
 				],
-				'login' => true
+                'login' => true,
+                'permissions' => \Ijdb\Entity\Author::CATEGORIES_EDIT
 			],
 			'category/list' => [
 				'GET' => [
 					'controller' => $categoryController,
 					'action' => 'list'
 				],
-				'login' => true
+				'login' => true,
+                'permissions' => \Ijdb\Entity\Author::CATEGORIES_LIST
 			],
 			'category/fuck' => [
 				'POST' => [
 					'controller' => $categoryController,
 					'action' => 'fuck'
 				],
-				'login' => true
-			]
+				'login' => true,
+                'permissions' => \Ijdb\Entity\Author::CATEGORIES_REMOVE
+			],
+			'author/permissions' => [
+				'GET' => [
+					'controller' => $authorController,
+					'action' => 'permissions'
+				],
+				'POST' => [
+					'controller' => $authorController,
+					'action' => 'savePermissions'
+				],
+                'login' => true,
+                'permissions' => \Ijdb\Entity\Author::EDIT_USER_ACCESS
+            ],
+			'author/list' => [
+				'GET' => [
+					'controller' => $authorController,
+					'action' => 'list'
+				],
+                'login' => true,
+                'permissions' => \Ijdb\Entity\Author::EDIT_USER_ACCESS
+            ]
 		];
 
 		return $routes;

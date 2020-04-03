@@ -23,8 +23,17 @@ class dbTable {
 		// this is the query that gets later referenced as ->query and thus will not produce name conflicts even if in other functions we have a variable called $query
 	}	
 
-	public function total() {
-		$query = $this->query('SELECT COUNT(*) FROM `' . $this->table . '`');
+	public function total($field = null, $value = null) {
+		$sql = 'SELECT COUNT(*) FROM `' . $this->table . '`';
+        $parameters = [];
+
+        if (!empty($field)) {
+            $sql .= ' WHERE `' .$field .'` = :value';
+            $parameters = ['value' => $value];
+        }
+
+        $query = $this->query($sql, $parameters);
+
 		$row = $query->fetch();
 		return $row[0];
 	}
@@ -41,18 +50,43 @@ class dbTable {
 		return $query->fetchObject($this->className,$this->constructorArgs);
 	}
 
-	public function find($column,$value) {
+	public function find($column,$value, $orderBy = null, $limit = null, $offset = null) {
 		$query = 'SELECT * FROM ' . $this->table . ' WHERE ' . $column . ' =:value';
 		
 		$parameters = ['value' => $value];
 
+        if ($orderBy !=null) {
+            $query .= ' ORDER BY ' . $orderBy;
+        }
+
+        if ($limit != null) {
+            $query .= ' LIMIT ' . $limit;
+        }
+
+        if ($offset != null) {
+            $query .= ' OFFSET ' . $offset;
+        }
 		$query = $this->query($query, $parameters);
 
 		return $query->fetchAll(\PDO::FETCH_CLASS, $this->className, $this->constructorArgs);
 	}
 
-	public function findAll() {
-		$result = $this->query('SELECT * FROM ' . $this->table);
+	public function findAll($orderBy = null, $limit = null, $offset = null) {
+        $query = 'SELECT * FROM ' . $this->table;
+
+        if ($orderBy != null) {
+            $query .= ' ORDER BY ' . $orderBy;
+        }
+
+        if ($limit != null) {
+            $query .= ' LIMIT ' . $limit;
+        }
+
+        if ($offset != null) {
+            $query .= ' OFFSET ' . $offset;
+        }
+
+		$result = $this->query($query);
 
 		return $result->fetchAll(\PDO::FETCH_CLASS, $this->className, $this->constructorArgs);
 	}
@@ -127,4 +161,15 @@ class dbTable {
 		return $entity;
 	
 	}
+
+    public function deleteWhere($column, $value) {
+        $query = 'DELETE FROM ' . $this->table .' WHERE ' . $column . ' = :value';
+
+        $parameters = [
+            'value' => $value
+        ];
+
+        $query = $this->query($query, $parameters);
+    }
+    
 }
